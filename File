@@ -1,0 +1,74 @@
+void Sculptor::writeOFF(char* nome){
+    string str;
+    ofstream f_out;
+    f_out.open(nome);
+    cout<<"Entrou\n";
+
+    if(! f_out.good())
+    {
+        cout << "Falha ao criar arquivo\n";
+    }
+    else
+        cout << "Arquivo criado!\n";
+
+    int totalDeElementos = nx*ny*nz;
+
+    for(int i = 0; i<nz; i++)
+    {
+        for(int j = 0; j<ny; j++)
+        {
+            for(int k = 0; k<nx; k++)
+            {
+                if(v[i][j][k].isOn == false)
+                {
+                    totalDeElementos--;
+                }
+            }
+        }
+    }
+    str += "OFF\n";
+    str += to_string(totalDeElementos*8) + " " + to_string(totalDeElementos*6) + " " + "0\n";
+    for(int i = 0; i<nz; i++)
+    {
+        for(int j = 0; j<ny; j++)
+        {
+            for(int k = 0; k<nx; k++)
+            {
+                if(v[i][j][k].isOn == true)
+                {
+                    str += to_string(k-0.5) + " " + to_string(j+0.5) + " " + to_string(i-0.5) + "\n";
+                    str += to_string(k-0.5) + " " + to_string(j-0.5) + " " + to_string(i-0.5) + "\n";
+                    str += to_string(k+0.5) + " " + to_string(j-0.5) + " " + to_string(i-0.5) + "\n";
+                    str += to_string(k+0.5) + " " + to_string(j+0.5) + " " + to_string(i-0.5) + "\n";
+                    str += to_string(k-0.5) + " " + to_string(j+0.5) + " " + to_string(i+0.5) + "\n";
+                    str += to_string(k-0.5) + " " + to_string(j-0.5) + " " + to_string(i+0.5) + "\n";
+                    str += to_string(k+0.5) + " " + to_string(j-0.5) + " " + to_string(i+0.5) + "\n";
+                    str += to_string(k+0.5) + " " + to_string(j+0.5) + " " + to_string(i+0.5) + "\n";
+                }
+            }
+        }
+    }
+    int cont = 0;
+    for(int i = 0; i<nz; i++)
+    {
+        for(int j = 0; j<ny; j++)
+        {
+            for(int k = 0; k<nx; k++)
+            {
+                if(v[i][j][k].isOn == true)
+                {
+                    int pos = 8*cont;
+                    str += "4 " + to_string(pos) + " " + to_string(pos+3) + " " + to_string(pos+2) + " " + to_string(pos+1) + " " + to_string(v[i][j][k].r) + " " + to_string(v[i][j][k].g) + " " + to_string(v[i][j][k].b) + " " + to_string(v[i][j][k].a) + "\n";
+                    str += "4 " + to_string(pos+4) + " " + to_string(pos+5) + " " + to_string(pos+6) + " " + to_string(pos+7) + " " + to_string(v[i][j][k].r) + " " + to_string(v[i][j][k].g) + " " + to_string(v[i][j][k].b) + " " + to_string(v[i][j][k].a) + "\n";
+                    str += "4 " + to_string(pos) + " " + to_string(pos+1) + " " + to_string(pos+5) + " " + to_string(pos+4) + " " + to_string(v[i][j][k].r) + " " + to_string(v[i][j][k].g) + " " + to_string(v[i][j][k].b) + " " + to_string(v[i][j][k].a) + "\n";
+                    str += "4 " + to_string(pos) + " " + to_string(pos+4) + " " + to_string(pos+7) + " " + to_string(pos+3) + " " + to_string(v[i][j][k].r) + " " + to_string(v[i][j][k].g) + " " + to_string(v[i][j][k].b) + " " + to_string(v[i][j][k].a) + "\n";
+                    str += "4 " + to_string(pos+3) + " " + to_string(pos+7) + " " + to_string(pos+6) + " " + to_string(pos+2) + " " + to_string(v[i][j][k].r) + " " + to_string(v[i][j][k].g) + " " + to_string(v[i][j][k].b) + " " + to_string(v[i][j][k].a) + "\n";
+                    str += "4 " + to_string(pos+1) + " " + to_string(pos+2) + " " + to_string(pos+6) + " " + to_string(pos+5) + " " + to_string(v[i][j][k].r) + " " + to_string(v[i][j][k].g) + " " + to_string(v[i][j][k].b) + " " + to_string(v[i][j][k].a) + "\n";
+                    cont++;
+                }
+            }
+        }
+    }
+    f_out << str;
+    f_out.close();
+}
