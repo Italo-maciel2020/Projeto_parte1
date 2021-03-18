@@ -60,11 +60,11 @@ void Sculptor::putVoxel(int x, int y, int z)
     for(i=0; i<=x; i++){
        for(j=0; j<=y; j++){
           for(k=0; k<=z; k++){
-    v[x][y][z].isOn = true;
-    v[x][y][z].r;
-    v[x][y][z].g;
-    v[x][y][z].b;
-    v[x][y][z].a;
+             v[x][y][z].isOn = true;
+             v[x][y][z].r=r;
+             v[x][y][z].g=g;
+             v[x][y][z].b=b;
+             v[x][y][z].a=a;
           }
        }
     }
@@ -75,10 +75,10 @@ void Sculptor::cutVoxel(int x, int y, int z){
     for(i=0; i<=x; i++){
        for(j=0; j<=y; j++){
           for(k=0; k<=z; k++){
-             v[i][j][k].r;
-             v[i][j][k].g;
-             v[i][j][k].b;
-             v[i][j][k].a;
+             v[i][j][k].r=r;
+             v[i][j][k].g=g;
+             v[i][j][k].b=b;
+             v[i][j][k].a=a;
              v[i][j][k].isOn = false;
           }
        }
